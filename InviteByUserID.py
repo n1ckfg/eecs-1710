@@ -11,6 +11,7 @@ personal_access_token = '' # Get it from your developer setting
 org=''# organization name
 team_slug = '' #your team's name
 users_list=''
+# e.g. Open a text file
 with open(users_list) as userfile:
     user_names=[user.split('\n')[0] for user in userfile.readlines()]
 for user in user_names:
