@@ -4,11 +4,18 @@ This script is about a simple web interaction using Github API-[add-or-update-te
 
 ## 1. Create a file with usernames/id/emails
 
-Create a file with usernames and modify functions of read files accordingly.
+Create a file with usernames(e.g. example_users in this repo) and modify functions of read files accordingly. 
 
 ## 2. Run the InviteByUsername.py
 
-Before you run the script, remember to edit the vairiables so that you can add members to the correct org and team.
+Before you run the script, remember to edit the global vairiables so that you can add members to the correct org and team.
+
+```
+personal_access_token = '' # Get it from your developer setting on Github
+org_name=''
+team_name = '' 
+txt_file='example_users.txt'
+```
 
 ### Workflow:
 
