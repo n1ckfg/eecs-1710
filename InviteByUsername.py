@@ -5,19 +5,24 @@
 # Modified by Yiwei Liu
 # 2021-9-17
 # https://github.com/t07902301/eecs-1710
-import requests,json
+import requests,json,re
 
-personal_access_token = '' # Get it from your developer setting on Github
-org_name=''
-team_name = '' 
-txt_file='example_users.txt'
+#Open config file and load your github information
+with open('config.json','r') as config:
+    config_file=json.load(config)
 
-def dump_username_file():
+personal_access_token = config_file['personal_access_token'] # Get it from your developer setting on Github
+org_name=config_file['org_name']
+team_name = config_file['team_name'] 
+user_info=config_file['user_info']
+
+def load_username_file():
     '''
-    e.g. usernames are stored in a text file
+    e.g. usernames are stored in a text file(.txt)
     '''
-    with open(txt_file) as userfile:
-        usernames=[user.split('\n')[0] for user in userfile.readlines()]
+    with open(user_info) as userfile:
+        usernames=[user.rstrip() for user in userfile]
+        usernames=[user for user in usernames if user]
     return usernames
 def get_members():
     url='https://api.github.com/orgs/{org}/teams/{team_slug}/members'.format(org=org_name,team_slug=team_name)
@@ -74,14 +79,13 @@ def get_username(user_info):
             return sereach_by_id
     elif re.search('.*@.*\.com',user_info):
         search_by_email=get_username_by_email(user_info)
-        if search_by_email is None:
+        if search_by_email is False:
             print('invalid email %s'%user_info)
             return None
         else:
             return search_by_email
     else:
         return user_info
-import re
 def add_users(usernames,existing_members):
     usernames=[get_username(user) for user in usernames]
     new_users=set(usernames)-set(existing_members)
@@ -104,8 +108,11 @@ def add_users(usernames,existing_members):
     #         error_record.write(error_msg)
     #         print('error_record saved')
 def main():
-    usernames=dump_username_file()
+    usernames=load_username_file()
     old_members=get_members()
+    print('got existig members')
     add_users(usernames,old_members)
+    print('inivitation is done')
+    # print(usernames)
 if __name__ == '__main__':
     main()
