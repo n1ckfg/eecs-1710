@@ -44,8 +44,8 @@ def get_username_by_id(user_id):
         return response.json()['login']
     except:
         print('invalid id %s'%user_id)
-        with open('error.json','w') as f:
-            json.dump(response.json(),f,indent=4)
+        # with open('error.json','w') as f:
+        #     json.dump(response.json(),f,indent=4)
         return None
 def get_username_by_email(user_email):
     url='https://api.github.com/search/users?q={}+in:email'.format(user_email)
