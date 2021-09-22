@@ -74,14 +74,14 @@ def get_username(user_info):
         sereach_by_id=get_username_by_id(user_info)
         if sereach_by_id is None:
             print('invalid id %s'%user_info)
-            return None
+            return user_info
         else:
             return sereach_by_id
     elif re.search('.*@.*\.com',user_info):
         search_by_email=get_username_by_email(user_info)
         if search_by_email is False:
             print('invalid email %s'%user_info)
-            return None
+            return user_info
         else:
             return search_by_email
     else:
