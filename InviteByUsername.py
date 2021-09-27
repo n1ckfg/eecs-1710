@@ -89,19 +89,19 @@ def get_username(user_info):
         return user_info
 def add_users(usernames,existing_members):
     usernames=[get_username(user) for user in usernames]
-    # new_users=set(usernames)-set(existing_members)
-    # new_users=list(new_users)
-    # if len(new_users)==0:
-    #     print('No new users.')
-    #     return None
-    # error_msg=''
-    # for user in new_users:
-    #     if user: # the username exists
-    #         print('Inviting @ '+user)
-    #         response=invite_request(user)
-    #         if 'message' in response.json():
-    #             print('Error @ {}'.format(user))
-    #             print(response.text)
+    new_users=set(usernames)-set(existing_members)
+    new_users=list(new_users)
+    if len(new_users)==0:
+        print('No new users.')
+        return None
+    error_msg=''
+    for user in new_users:
+        if user: # the username exists
+            print('Inviting @ '+user)
+            response=invite_request(user)
+            if 'message' in response.json():
+                print('Error @ {}'.format(user))
+                print(response.text)
 
     # # Dump error msgs into files
     # if error_msg !='':
