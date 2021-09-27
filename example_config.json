@@ -1,0 +1,6 @@
+{
+    "personal_access_token" : "(Get it from your developer setting on Github)",  
+    "org_name":"",
+    "team_name" : "" ,
+    "user_info":"example_users.txt"
+}
