@@ -71,12 +71,13 @@ def invite_request(user):
     return response
 def get_username(user_info):
     if re.search('^\d*$',user_info):
-        sereach_by_id=get_username_by_id(user_info)
-        if sereach_by_id is None:
+        search_by_id=get_username_by_id(user_info)
+        if search_by_id is None:
             print('invalid id %s'%user_info)
             return user_info
         else:
-            return sereach_by_id
+            print('{}: {}'.format(user_info,search_by_id))
+            return search_by_id
     elif re.search('.*@.*\.com',user_info):
         search_by_email=get_username_by_email(user_info)
         if search_by_email is False:
@@ -88,19 +89,19 @@ def get_username(user_info):
         return user_info
 def add_users(usernames,existing_members):
     usernames=[get_username(user) for user in usernames]
-    new_users=set(usernames)-set(existing_members)
-    new_users=list(new_users)
-    if len(new_users)==0:
-        print('No new users.')
-        return None
-    error_msg=''
-    for user in new_users:
-        if user: # the username exists
-            print('Inviting @ '+user)
-            response=invite_request(user)
-            if 'message' in response.json():
-                print('Error @ {}'.format(user))
-                print(response.text)
+    # new_users=set(usernames)-set(existing_members)
+    # new_users=list(new_users)
+    # if len(new_users)==0:
+    #     print('No new users.')
+    #     return None
+    # error_msg=''
+    # for user in new_users:
+    #     if user: # the username exists
+    #         print('Inviting @ '+user)
+    #         response=invite_request(user)
+    #         if 'message' in response.json():
+    #             print('Error @ {}'.format(user))
+    #             print(response.text)
 
     # # Dump error msgs into files
     # if error_msg !='':
